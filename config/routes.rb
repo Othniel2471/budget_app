@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'splash/index'
+  get 'pages/home'
   devise_for :users
 
   resources :expenses
@@ -7,5 +9,5 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
-  root to: "categories#index"
+  root 'splash#index'
 end
