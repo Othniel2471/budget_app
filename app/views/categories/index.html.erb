@@ -1,0 +1,18 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Categories</h1>
+
+<div id="categories">
+  <% @categories.each do |category| %>
+    <%= render category %>
+    <p>
+      <%= link_to "Show this category", category %>
+    </p>
+  <% end %>
+</div>
+
+<% if user_signed_in? %>
+     <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: "submit-btn" %>
+<%end%>
+
+<%= link_to "New category", new_category_path %>
