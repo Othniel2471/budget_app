@@ -12,8 +12,8 @@
 
 .splash-title {
   text-align: center;
-  font-size: 36px; /* Adjust the font size as needed */
-  margin-top: 100px; /* Adjust the top margin to center vertically */
+  font-size: 36px;
+  margin-top: 100px;
 }
 
 .splash-buttons {
@@ -42,7 +42,6 @@
   background-color: #fff;
   color: #3878c2;
   padding: 10px 20px;
-  border: none;
   border-radius: 5px;
   text-align: center;
   border: 1px solid #3878c2;
@@ -64,7 +63,6 @@
   background-color: #3878c2;
   color: #fff;
   padding: 10px 20px;
-  border: none;
   border-radius: 5px;
   text-align: center;
   border: 1px solid #3878c2;
