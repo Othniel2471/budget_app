@@ -1,10 +1,27 @@
-<p style="color: green"><%= notice %></p>
+<nav class="">
+  <i class="fa-solid fa-chevron-left"><%= link_to 'Back', categories_path, class: 'your-link-class' %></i>
+  <h2 class="center"><%= @category.name.upcase%></h2>
+  <h3>
+    $<%= @category.expenses.sum(:amount) %>
+  </h3>
+</nav>
 
-<%= render @category %>
+<div class="category-card-container">
+    <div class="show-one">
+      <% @category.expenses.each do |payment| %>
+        <div class="category-card gap">
+            <p class="cash">
+              <%= payment.name %>
+            </p>
+            <div class="payment-dets">
+              <span>$<%= payment.amount %></span>
+              <span><%= payment.created_at.to_date %></span>
+            </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
 
-<div>
-  <%= link_to "Edit this category", edit_category_path(@category) %> |
-  <%= link_to "Back to categories", categories_path %>
-
-  <%= button_to "Destroy this category", @category, method: :delete %>
+<div class="create-new-cate">
+  <%= link_to 'NEW EXPENSE', new_expense_path, class: 'submit-btn' %>
 </div>
