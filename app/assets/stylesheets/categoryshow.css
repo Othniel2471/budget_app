@@ -1,0 +1,11 @@
+.show-one {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  text-transform: capitalize;
+}
+
+.payment-dets {
+  display: flex;
+  flex-direction: column;
+}

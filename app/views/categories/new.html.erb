@@ -1,9 +1,8 @@
+<nav class="">
+  <i class="fa-solid fa-chevron-left"><%= link_to 'Back', categories_path, class: 'your-link-class' %></i>
+</nav>
 <h1>New category</h1>
 
 <%= render "form", category: @category %>
 
 <br>
-
-<div>
-  <%= link_to "Back to categories", categories_path %>
-</div>

@@ -4,7 +4,7 @@ class CategoriesController < ApplicationController
 
   # GET /categories or /categories.json
   def index
-    @categories = Category.all
+    @categories = Category.where(user_id: current_user.id).includes(:expenses).order('name')
   end
 
   # GET /categories/1 or /categories/1.json
@@ -13,6 +13,23 @@ class CategoriesController < ApplicationController
   # GET /categories/new
   def new
     @category = Category.new
+    @options = [
+      ['🚗'],
+      ['🍔'],
+      ['🍺'],
+      ['🛒'],
+      ['🏠'],
+      ['📱'],
+      ['👕'],
+      ['👟'],
+      ['🎮'],
+      ['🎫'],
+      ['🎬'],
+      ['🎤'],
+      ['🎧'],
+      ['🎹'],
+      ['🎲']
+    ]
   end
 
   # GET /categories/1/edit
@@ -21,6 +38,7 @@ class CategoriesController < ApplicationController
   # POST /categories or /categories.json
   def create
     @category = Category.new(category_params)
+
 
     respond_to do |format|
       if @category.save
@@ -65,6 +83,6 @@ class CategoriesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def category_params
-    params.require(:category).permit(:name, :icon)
+    params.require(:category).permit(:name, :icon).merge(user_id: current_user.id)
   end
 end

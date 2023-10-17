@@ -1,29 +1,40 @@
 class ExpensesController < ApplicationController
-  before_action :set_expense, only: %i[show edit update destroy]
+  before_action :set_Expense, only: %i[show edit update destroy]
+  before_action :category_params, only: %i[destroy]
 
-  # GET /expenses or /expenses.json
+  # GET /Expenses or /Expenses.json
   def index
     @expenses = Expense.all
   end
 
-  # GET /expenses/1 or /expenses/1.json
+  # GET /Expenses/1 or /Expenses/1.json
   def show; end
 
-  # GET /expenses/new
+  # GET /Expenses/new
   def new
     @expense = Expense.new
+    @user_categories = Category.where(user_id: current_user.id)
   end
 
-  # GET /expenses/1/edit
+  # GET /Expenses/1/edit
   def edit; end
 
-  # POST /expenses or /expenses.json
+  # POST /Expenses or /Expenses.json
   def create
-    @expense = Expense.new(expense_params)
+    params = expense_params
+
+    @expense = Expense.new(name: params[:name], amount: params[:amount])
+    @expense.author = current_user # Set the author to the current user
+
+    category_ids = params[:category_ids]
+    category_ids.each do |id|
+      category = Category.find(id) unless id == ''
+      @expense.categories.push(category) unless category.nil?
+    end
 
     respond_to do |format|
       if @expense.save
-        format.html { redirect_to expense_url(@expense), notice: 'Expense was successfully created.' }
+        format.html { redirect_to categories_url, notice: 'Expense was successfully created.' }
         format.json { render :show, status: :created, location: @expense }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -32,11 +43,11 @@ class ExpensesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /expenses/1 or /expenses/1.json
+  # PATCH/PUT /Expenses/1 or /Expenses/1.json
   def update
     respond_to do |format|
       if @expense.update(expense_params)
-        format.html { redirect_to expense_url(@expense), notice: 'Expense was successfully updated.' }
+        format.html { redirect_to Expense_url(@expense), notice: 'Expense was successfully updated.' }
         format.json { render :show, status: :ok, location: @expense }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -45,12 +56,13 @@ class ExpensesController < ApplicationController
     end
   end
 
-  # DELETE /expenses/1 or /expenses/1.json
+  # DELETE /Expenses/1 or /Expenses/1.json
   def destroy
     @expense.destroy
+    @category = category_params
 
     respond_to do |format|
-      format.html { redirect_to expenses_url, notice: 'Expense was successfully destroyed.' }
+      format.html { redirect_to categories_url, notice: 'Expense was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -58,12 +70,16 @@ class ExpensesController < ApplicationController
   private
 
   # Use callbacks to share common setup or constraints between actions.
-  def set_expense
-    @expense = Expense.find(params[:id])
+  def set_Expense
+    @Expense = Expense.find(params[:id])
   end
 
   # Only allow a list of trusted parameters through.
   def expense_params
-    params.require(:expense).permit(:name, :amount)
+    params.require(:expense).permit(:name, :amount, category_ids: [])
+  end
+
+  def category_params
+    params.permit(:id)
   end
 end

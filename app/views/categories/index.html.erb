@@ -1,18 +1,28 @@
-<p style="color: green"><%= notice %></p>
+  <% unless request.path == "/users" || (controller_name == "users" && action_name == "index") %>
+    <nav class="">
+      <% if user_signed_in? && request.path == "/categories" %>
+        <%= button_to "Log out", destroy_user_session_path, method: :delete, class: "bg-blue-200 rounded-full", form: { action: users_path, method: :get } %>
+      <% end %>
+    </nav>
+  <% end %>
+<div class="center">
+  <h2 class="">CATEGORIES</h2>
+</div>
 
-<h1>Categories</h1>
-
-<div id="categories">
+<div class="category-card-container">
   <% @categories.each do |category| %>
-    <%= render category %>
-    <p>
-      <%= link_to "Show this category", category %>
-    </p>
+    <a href="<%= category_path(id: category) %>" class="category-card">
+      <div class="">
+        <span><%= category.icon %></span>
+        <h2 class=""><%= category.name %></h2>
+      </div>
+      <h2 class="cash">
+        $<%= number_with_precision(category.expenses.sum(:amount), precision: 2) %>
+      </h2>
+    </a>
   <% end %>
 </div>
 
-<% if user_signed_in? %>
-     <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: "submit-btn" %>
-<%end%>
-
-<%= link_to "New category", new_category_path %>
+<div class="create-new-cate">
+  <%= link_to "Create new category", new_category_path, class: "create-new-cate-btn" %>
+</div>
