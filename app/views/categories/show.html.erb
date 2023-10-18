@@ -8,7 +8,7 @@
 
 <div class="category-card-container">
     <div class="show-one">
-      <% @category.expenses.each do |payment| %>
+      <% @category.expenses.order(created_at: :desc).each do |payment| %>
         <div class="category-card gap">
             <p class="cash">
               <%= payment.name %>
@@ -23,5 +23,5 @@
   </div>
 
 <div class="create-new-cate">
-  <%= link_to 'NEW EXPENSE', new_expense_path, class: 'submit-btn' %>
+<%= link_to 'NEW EXPENSE', new_category_expense_path(@category), class: 'submit-btn' %>
 </div>
