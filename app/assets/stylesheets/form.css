@@ -1,0 +1,60 @@
+.your-form-class {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.error-message {
+  color: red;
+  margin-bottom: 10px;
+}
+
+.form-field {
+  margin-bottom: 20px;
+  outline: none;
+}
+
+.your-text-field-class {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  background: none;
+  outline: none;
+}
+
+.create-new-cate {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #60b625;
+  padding: 20px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.submit-btn {
+  border: 2px solid white;
+  background: transparent;
+  color: white;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  padding: 10px 20px;
+  font-size: 1rem;
+  width: 20rem;
+  text-align: center;
+
+  &:hover {
+    background: white;
+    color: #60b625;
+  }
+}

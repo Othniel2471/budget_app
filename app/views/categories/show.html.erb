@@ -1,0 +1,27 @@
+<nav class="">
+  <i class="fa-solid fa-chevron-left"><%= link_to 'Back', categories_path, class: 'your-link-class' %></i>
+  <h2 class="center"><%= @category.name.upcase%></h2>
+  <h3>
+    $<%= @category.expenses.sum(:amount) %>
+  </h3>
+</nav>
+
+<div class="category-card-container">
+    <div class="show-one">
+      <% @category.expenses.order(created_at: :desc).each do |payment| %>
+        <div class="category-card gap">
+            <p class="cash">
+              <%= payment.name %>
+            </p>
+            <div class="payment-dets">
+              <span>$<%= payment.amount %></span>
+              <span><%= payment.created_at.to_date %></span>
+            </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+<div class="create-new-cate">
+<%= link_to 'NEW EXPENSE', new_category_expense_path(@category), class: 'submit-btn' %>
+</div>
