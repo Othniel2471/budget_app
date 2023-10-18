@@ -12,14 +12,38 @@ class ExpensesController < ApplicationController
 
   # GET /Expenses/new
   def new
-    @expense = Expense.new
+    @category = Category.find(params[:category_id]) # Retrieve the category based on category_id
     @user_categories = Category.where(user_id: current_user.id)
+    @expense = Expense.new
   end
 
   # GET /Expenses/1/edit
   def edit; end
 
   # POST /Expenses or /Expenses.json
+  # def create
+  #   params = expense_params
+
+  #   @expense = Expense.new(name: params[:name], amount: params[:amount])
+  #   @expense.author = current_user # Set the author to the current user
+
+  #   category_ids = params[:category_ids]
+  #   category_ids.each do |id|
+  #     category = Category.find(id) unless id == ''
+  #     @expense.categories.push(category) unless category.nil?
+  #   end
+
+  #   respond_to do |format|
+  #     if @expense.save
+  #       format.html { redirect_to categories_url, notice: 'Expense was successfully created.' }
+  #       format.json { render :show, status: :created, location: @expense }
+  #     else
+  #       format.html { render :new, status: :unprocessable_entity }
+  #       format.json { render json: @expense.errors, status: :unprocessable_entity }
+  #     end
+  #   end
+  # end
+
   def create
     params = expense_params
 
@@ -34,6 +58,7 @@ class ExpensesController < ApplicationController
 
     respond_to do |format|
       if @expense.save
+        # Redirect to the category's expenses page
         format.html { redirect_to categories_url, notice: 'Expense was successfully created.' }
         format.json { render :show, status: :created, location: @expense }
       else
