@@ -130,7 +130,7 @@ production:
 Install this project with:
 
 ```bash
-  cd blog
+  cd budget-app
   bundle install
 ```
 
